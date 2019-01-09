@@ -1,0 +1,82 @@
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/gameEditCard"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:layout_margin="20dp"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="4dp">
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="left"
+        android:text="Title"
+        android:paddingLeft="20dp"
+        android:layout_marginBottom="100dp"
+        android:textColor="@android:color/darker_gray"/>
+
+    <EditText
+        android:id="@+id/title_Text"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:textSize="20dp"
+        android:layout_marginLeft="20dp"/>
+    <TextView
+        android:id="@+id/platfrom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="left"
+        android:text="Platform"
+        android:paddingLeft="20dp"
+        android:layout_marginBottom="45dp"
+        android:textColor="@android:color/darker_gray"/>
+    <EditText
+        android:id="@+id/platform_Text"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:textSize="20dp"
+        android:layout_marginLeft="20dp"/>
+    <TextView
+        android:id="@+id/notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="left"
+        android:text="Notes"
+        android:paddingLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@android:color/darker_gray"/>
+    <EditText
+        android:id="@+id/notes_Text"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="135dp"
+        android:textSize="20dp"
+        android:layout_marginLeft="20dp"/>
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="left"
+        android:text="Status"
+        android:paddingLeft="20dp"
+        android:layout_marginTop="65dp"
+        android:textColor="@android:color/darker_gray"/>
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_marginRight="10dp"/>
+
+
+
+</android.support.v7.widget.CardView>

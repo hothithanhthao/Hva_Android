@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">GameBackLog</string>
+    <string name="action_settings">Settings</string>
+    <string-array name="statuses">
+        <item>Want to play</item>
+        <item>Playing</item>
+        <item>Stalled</item>
+        <item>Dropped</item>
+    </string-array>
+</resources>

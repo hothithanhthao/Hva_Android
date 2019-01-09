@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">StudentPortal</string>
+    <string name="action_settings">Settings</string>
+    <string name="give_a_reminde">Add Portals</string>
+    <string name="url">URL</string>
+    <string name="title">Tittle</string>
+    <string name="add">ADD PORTALS</string>
+</resources>

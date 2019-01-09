@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="quenstion">Can you guess if these streetview images are in Europe? Swipe the image left for Europe, right for not Europe</string>
+</resources>
