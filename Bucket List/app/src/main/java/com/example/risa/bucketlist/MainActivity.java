@@ -1,15 +1,22 @@
 package com.example.risa.bucketlist;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
+import android.arch.paging.PagedList;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BucketItemAdapter.ClickListener {
+
+    private RecyclerView recyclerView;
+    private BucketItemAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,31 +29,55 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                insertBucketItem();
             }
         });
+
+        BucketItemViewModelFactory bucketItemViewModelFactory = new BucketItemViewModelFactory( AppDatabase.getInstance( getApplicationContext() ).bucketItemDao() );
+        BucketItemViewModel viewModel = ViewModelProviders.of( this, bucketItemViewModelFactory ).get( BucketItemViewModel.class );
+
+        recyclerView = findViewById( R.id.recyclerView );
+        adapter = new BucketItemAdapter( this );
+        viewModel.bucketItemList.observe(this, new Observer<PagedList<BucketItem>>() {
+            @Override
+            public void onChanged(@Nullable PagedList<BucketItem> bucketItems) {
+                adapter.submitList( bucketItems );
+            }
+        });
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public void OnLongClick(BucketItem bucketItem) {
+        editBucketItem( bucketItem );
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public void OnClick(BucketItem bucketItem) {
+        setBucketItemCompleted( bucketItem, bucketItem.getCompleted() != 1);
+    }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+    private void insertBucketItem() {
+        Intent intent = new Intent(this, EditAcitvity.class);
+        intent.setAction(Intent.ACTION_INSERT);
+        startActivity(intent);
+    }
 
-        return super.onOptionsItemSelected(item);
+    private void editBucketItem( BucketItem bucketItem ) {
+        Intent intent = new Intent(this, EditAcitvity.class);
+        intent.putExtra("bucketItemId", bucketItem.getId() );
+        intent.setAction(Intent.ACTION_EDIT);
+        startActivity(intent);
+    }
+
+    private void setBucketItemCompleted( final BucketItem bucketItem, boolean completed ) {
+        bucketItem.setCompleted( completed ? 1 : 0 );
+
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                AppDatabase.getInstance( getApplicationContext() ).bucketItemDao().update( bucketItem );
+            }
+        });
     }
 }
